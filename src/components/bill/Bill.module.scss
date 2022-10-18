@@ -1,0 +1,15 @@
+.Bill {
+    ul {
+        display: flex;
+        flex-direction: column;
+        li::marker {
+            content: '';
+        }
+    }
+    .paid-out {
+        order: 2;
+    }
+    .still-owe {
+        order: 1;
+    }
+}
