@@ -101,7 +101,7 @@ export const ContactList = () => {
     return (
         <div className={styles.ContactList}>
             <h3>Contacts:</h3>
-            <input value={searchTerm} type={"search"} onChange={handleSearchChange} placeholder="Search..." title="Filter contacts" />
+            Search: <input value={searchTerm} type={"search"} onChange={handleSearchChange} placeholder="Search..." title="Filter contacts" />
             <ul>
                 {
                     filteredList.map(contact =>
@@ -122,7 +122,7 @@ export const ContactList = () => {
             </ul>
             <div>{checks.size} of {contacts.length} selected.</div>
             <div>
-                <button onClick={() => setChecks(new Set(filteredList.map((x) => x.id)))}>Select All Visible</button>
+                <button onClick={() => setChecks(new Set([...checks, ...filteredList.map((x) => x.id)]))}>Select All Visible</button>
                 <button disabled={!checks.size} onClick={() => setChecks(new Set())}>Deselect All</button>
             </div>
             <div>
