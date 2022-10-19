@@ -24,6 +24,6 @@ export const BillsList = () => {
             </div>
             : <h4>No bills currently saved, you may start with creating one:</h4>
         }
-        <Link to="/contacts">Log another split bill...</Link>
+        To log another split bill select the participants in <Link to="/contacts">Contacts</Link>
     </div>;
 }
