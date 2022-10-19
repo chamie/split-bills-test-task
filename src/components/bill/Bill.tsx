@@ -7,6 +7,7 @@ import { Contact } from "../contact/Contact";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./Bill.module.scss";
+import moment from "moment";
 
 type Props = BillDto & {
     onEdit?: (bill: BillDto) => void,
@@ -70,7 +71,7 @@ export const Bill = (props: Props) => {
                     </li>
                 })}
             </ul>
-            <div className={styles.dateCreated}>Created on {creationDate.toLocaleString()}</div>
+            <div className={styles.dateCreated}>Created {moment(creationDate).fromNow()}</div>
         </div>
     );
 };
