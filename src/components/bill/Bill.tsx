@@ -32,16 +32,19 @@ export const Bill = (props: Props) => {
 
     const navigate = useNavigate();
 
+    const isAllPaid = paidOut.size === peopleIds.length;
+
     return (
-        <div className={classes([styles.Bill, onEdit ? styles.active : "", paidOut.size === peopleIds.length ? styles["paid-out"] : ""])}>
-            <div className={styles["edit-save-icon"]}>
+        <div tabIndex={-1} aria-labelledby={`bill-${billId}-title`} className={classes([styles.Bill, onEdit ? styles.active : "", isAllPaid ? styles["paid-out"] : ""])}>
+            <div className={styles["action-buttons-row"]}>
+                { !isAllPaid && <button aria-label="Mark all persons as already paid">✅mark paid</button>}
                 {
                     onEdit
-                        ? <button onClick={() => { navigate(`/`) }} title="Done">✔️</button>
-                        : <button onClick={() => { navigate(`/${billId}`) }} title="Edit">🖊️</button>
+                        ? <button aria-label={`Submit changes to ${title} bill and quit editing mode`} onClick={() => { navigate(`/`) }} title="Done">✔️submit</button>
+                        : <button aria-label="Edit the bill" onClick={() => { navigate(`/${billId}`) }} title="Edit">🖊️edit</button>
                 }
             </div>
-            <h4>{
+            <h4 id={`bill-${billId}-title`}>{
                 onEdit
                     ? <input value={title} readOnly={!onEdit} onChange={titleChangeHandler} />
                     : title

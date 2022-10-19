@@ -13,6 +13,7 @@ export const Contact = (props: Props) => {
                 type={"checkbox"}
                 checked={props.isChecked}
                 onChange={() => props.onCheck(props.id)}
+                aria-label={props.name}
             />
             <span onClick={() => props.onNameClick(props.id)}>
                 {props.name}
