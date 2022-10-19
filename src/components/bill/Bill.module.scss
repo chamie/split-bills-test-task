@@ -10,7 +10,7 @@ $paddingSize: 20px;
         opacity: .8;
         order: 2;
         background: #FFCFBC;
-        color: darkgrey;
+        color: #333;
         transition: order 1s;
     }
     ul {
@@ -58,11 +58,15 @@ $paddingSize: 20px;
     margin: 5px;
     padding: $paddingSize;
     position: relative;
-    display: inline-block;
-    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
     box-shadow: inset 0 10px 20px beige;
 }
 
 .dateCreated {
     font-size: medium;
+    display: flex;
+    align-items: flex-end;
+    flex: 1;
 }

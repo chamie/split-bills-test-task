@@ -52,11 +52,13 @@ export const Bill = (props: Props) => {
                     ? <input value={title} readOnly={!onEdit} onChange={titleChangeHandler} />
                     : title
             }</h4>
-            {
-                onEdit
-                    ? <input type="number" value={sum} readOnly={!onEdit} size={3} onChange={sumChangeHandler} />
-                    : sum
-            } total, {Math.round(splitSum * 100) / 100} each.
+            <div>
+                {
+                    onEdit
+                        ? <input type="number" value={sum} readOnly={!onEdit} size={3} onChange={sumChangeHandler} />
+                        : sum
+                } total, {Math.round(splitSum * 100) / 100} each.
+            </div>
             <ul>
                 {peopleIds.map(personId => {
                     const person = contacts[personId];
