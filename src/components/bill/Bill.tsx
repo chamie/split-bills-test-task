@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setPaid } from "../../features/bills/billsSlice";
+import { setBillPaid, setPaid } from "../../features/bills/billsSlice";
 import { selectContacts } from "../../features/contacts/contactsSlice";
 import { BillDto } from "../../types/billModel";
 import { Contact } from "../contact/Contact";
@@ -30,6 +30,8 @@ export const Bill = (props: Props) => {
 
     const sumChangeHandler = (e: ChangeEvent<HTMLInputElement>) => onEdit && onEdit({ ...props, sum: parseInt(e.target.value) });
 
+    const checkAllHandler = () => dispatch(setBillPaid(billId));
+
     const navigate = useNavigate();
 
     const isAllPaid = paidOut.size === peopleIds.length;
@@ -37,7 +39,7 @@ export const Bill = (props: Props) => {
     return (
         <div tabIndex={-1} aria-labelledby={`bill-${billId}-title`} className={classes([styles.Bill, onEdit ? styles.active : "", isAllPaid ? styles["paid-out"] : ""])}>
             <div className={styles["action-buttons-row"]}>
-                { !isAllPaid && <button aria-label="Mark all persons as already paid">✅mark paid</button>}
+                {!isAllPaid && <button aria-label="Mark all persons as already paid" onClick={checkAllHandler}>✅mark paid</button>}
                 {
                     onEdit
                         ? <button aria-label={`Submit changes to ${title} bill and quit editing mode`} onClick={() => { navigate(`/`) }} title="Done">✔️submit</button>

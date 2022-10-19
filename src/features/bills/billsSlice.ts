@@ -32,7 +32,8 @@ export const billsSlice = createSlice({
         },
         setPaid: (state, action: PayloadAction<{ billId: number, contactId: number, markPaid: boolean }>) => {
             const { billId, contactId, markPaid: isPaid } = action.payload;
-            const bill = state.bills.find(b => b.id === billId)
+            const bill = state.bills.find(b => b.id === billId);
+
             if (!bill) return;
 
             if (isPaid) {
@@ -40,6 +41,14 @@ export const billsSlice = createSlice({
             } else {
                 bill.idsPaidOut = bill.idsPaidOut.filter(x => x !== contactId);
             }
+        },
+        setBillPaid: (state, action: PayloadAction<number>) => {
+            const billId = action.payload;
+            const bill = state.bills.find(b => b.id === billId);
+
+            if (!bill) return;
+
+            bill.idsPaidOut = bill.peopleIds;
         },
         updateBill: (state, action: PayloadAction<BillDto>) => {
             const bill = action.payload;
@@ -59,7 +68,7 @@ export const addBill =
             navigate(`/${getState().bills.bills.slice(-1)[0].id}`);
         }
 
-export const { setPaid, setBills, updateBill } = billsSlice.actions;
+export const { setPaid, setBills, updateBill, setBillPaid } = billsSlice.actions;
 
 export const selectBills = (state: RootState) => state.bills.bills;
 
