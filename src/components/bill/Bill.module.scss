@@ -1,15 +1,65 @@
+$paddingSize: 20px;
 .Bill {
+    &.active {
+        border-width: 3px;
+        border-color: salmon;
+        padding: $paddingSize - 2px;
+    }
+    &.paid-out {
+        opacity: .8;
+        order: 2;
+        background: #FFCFBC;
+        color: darkgrey;
+        transition: order 1s;
+    }
     ul {
         display: flex;
         flex-direction: column;
+        text-align: left;
         li::marker {
             content: '';
         }
     }
-    .paid-out {
-        order: 2;
+    input[readonly] {
+        border: none;
+        &:focus-visible {
+            outline: none;
+        }
     }
-    .still-owe {
-        order: 1;
+    h1,
+    h2,
+    h3,
+    h4 {
+        border-bottom: 1px solid darksalmon;
+        margin: 20px;
+        padding-bottom: 20px;
     }
+    input {
+        font: inherit;
+        text-align: right;
+        vertical-align: middle;
+        padding: 0;
+        border: none;
+    }
+    input:not([type=checkbox]) {
+        outline: 1px solid salmon;
+    }
+    .edit-save-icon {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: large;
+    }
+    order: 1;
+    border: 2px solid darksalmon;
+    border-radius: 20px;
+    margin: 5px;
+    padding: $paddingSize;
+    position: relative;
+    display: inline-block;
+    max-width: 320px;
+}
+
+.dateCreated {
+    font-size: medium;
 }

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import * as Storage from "../../services/storageService";
 import { BillCreateModel, BillDto } from "../../types/billModel";
+import moment from 'moment';
 
 export type BillsState = {
     bills: BillDto[],
@@ -21,7 +22,7 @@ export const billsSlice = createSlice({
                 creationDate: new Date(),
                 idsPaidOut: [],
                 sum: 0,
-                title: new Date().toLocaleString(),
+                title: `Bill from ${moment().format('MMMM Do YYYY')}`,
                 id: state.bills.length,
             };
             state.bills.push(bill);
@@ -32,7 +33,7 @@ export const billsSlice = createSlice({
         setPaid: (state, action: PayloadAction<{ billId: number, contactId: number, markPaid: boolean }>) => {
             const { billId, contactId, markPaid: isPaid } = action.payload;
             const bill = state.bills.find(b => b.id === billId)
-            if(!bill) return;
+            if (!bill) return;
 
             if (isPaid) {
                 bill.idsPaidOut.push(contactId);
@@ -40,6 +41,10 @@ export const billsSlice = createSlice({
                 bill.idsPaidOut = bill.idsPaidOut.filter(x => x !== contactId);
             }
         },
+        updateBill: (state, action: PayloadAction<BillDto>) => {
+            const bill = action.payload;
+            state.bills[bill.id] = bill;
+        }
     }
 });
 
@@ -54,7 +59,7 @@ export const addBill =
             navigate(`/${getState().bills.bills.slice(-1)[0].id}`);
         }
 
-export const { setPaid, setBills } = billsSlice.actions;
+export const { setPaid, setBills, updateBill } = billsSlice.actions;
 
 export const selectBills = (state: RootState) => state.bills.bills;
 

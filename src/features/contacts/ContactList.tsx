@@ -4,17 +4,47 @@ import { Contact } from "../../components/contact/Contact";
 import styles from './ContactList.module.scss';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addContact, selectContacts } from "./contactsSlice";
-import { addBill } from "../bills/billsSlice";
+import { addBill, selectBills } from "../bills/billsSlice";
 import { useNavigate } from 'react-router-dom';
+import { moneyRound, sortBy } from "../../utils/utils";
 
 type FilteredContactModel = ContactModel & {
     id: number,
+}
+
+type contactDetails = {
+    totalDebt: number,
+    totalBillsNotPaid: number,
+    totalBills: number,
 }
 
 export const ContactList = () => {
     const contacts = useAppSelector(selectContacts);
     const [checks, setChecks] = useState<Set<number>>(new Set());
     const [newName, setNewName] = useState("");
+    const [showDetails, setShowDetails] = useState(true);
+
+    let details = new Map<number, contactDetails>();
+    const bills = useAppSelector(selectBills);
+    if (showDetails) {
+        bills.forEach(bill => {
+            const paid = new Set(bill.idsPaidOut);
+            bill.peopleIds.forEach(personId => {
+                const person = details.get(personId) || {
+                    totalBills: 0,
+                    totalBillsNotPaid: 0,
+                    totalDebt: 0,
+                };
+                person.totalBills++;
+                if (!paid.has(personId)) {
+                    person.totalBillsNotPaid++;
+                    person.totalDebt += bill.sum / bill.peopleIds.length;
+                }
+
+                details.set(personId, person);
+            });
+        })
+    }
 
     const checkHandler = useCallback((id: number) => {
         const newValue = new Set(checks);
@@ -34,16 +64,18 @@ export const ContactList = () => {
     }, [newName, dispatch]);
 
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredList, setFilteredList] = useState<FilteredContactModel[]>(
-        contacts.map((x, id) =>
-            ({ ...x, id })
-        )
-    );
+    const [filteredList, setFilteredList] = useState<FilteredContactModel[]>([]);
 
     const applyFilter = (filterValue: string) =>
-        setFilteredList(contacts
-            .map((x, id) => ({ ...x, id }))
-            .filter(c => c.name.toLocaleUpperCase().startsWith(filterValue.toUpperCase()))
+        setFilteredList(
+            sortBy(
+                contacts
+                    .map((x, id) =>
+                        ({ ...x, id })
+                    )
+                    .filter(c => c.name.toLocaleUpperCase().startsWith(filterValue.toUpperCase())),
+                x => x.name
+            )
         );
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +93,7 @@ export const ContactList = () => {
     const handleAddBillClick = useCallback(() => {
         dispatch(
             addBill({
-                peopleIds: [...checks.keys()]
+                peopleIds: Array.from(checks.keys())
             }, navigate)
         );
     }, [checks, dispatch, navigate]);
@@ -69,7 +101,7 @@ export const ContactList = () => {
     return (
         <div className={styles.ContactList}>
             <h3>Contacts:</h3>
-            <input value={searchTerm} type={"search"} onChange={handleSearchChange} />
+            <input value={searchTerm} type={"search"} onChange={handleSearchChange} placeholder="Search..." title="Filter contacts" />
             <ul>
                 {
                     filteredList.map(contact =>
@@ -80,13 +112,17 @@ export const ContactList = () => {
                                 onNameClick={checkHandler}
                                 {...contact}
                             />
+                            {
+                                showDetails &&
+                                <small> (owes {moneyRound(details.get(contact.id)?.totalDebt || 0)} for {details.get(contact.id)?.totalBills} bills)</small>
+                            }
                         </li>
                     )
                 }
             </ul>
             <div>{checks.size} of {contacts.length} selected.</div>
             <div>
-                <button onClick={() => setChecks(new Set(contacts.map((_, id) => id)))}>Select All</button>
+                <button onClick={() => setChecks(new Set(filteredList.map((x) => x.id)))}>Select All Visible</button>
                 <button disabled={!checks.size} onClick={() => setChecks(new Set())}>Deselect All</button>
             </div>
             <div>
