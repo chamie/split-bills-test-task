@@ -2,8 +2,21 @@ import './App.css';
 import { ContactList } from './features/contacts/ContactList';
 import { BillsList } from './features/bills/BillsList';
 import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppDispatch } from './app/hooks';
+import { setBills } from './features/bills/billsSlice';
+import { loadBills, loadContacts } from './services/storageService';
+import { setContacts } from './features/contacts/contactsSlice';
 
 function App() {
+  const dispatch = useAppDispatch();
+  useEffect(()=> window.addEventListener('storage', (event)=> {
+    if(event.key === 'bills') {
+      dispatch(setBills(loadBills()));
+    } else {
+      dispatch(setContacts(loadContacts()));
+    }
+  }), [dispatch]);
 
   return (
     <div className="App">
