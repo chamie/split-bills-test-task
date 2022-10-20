@@ -124,6 +124,7 @@ export const ContactList = () => {
             <div>
                 <button onClick={() => setChecks(new Set([...checks, ...filteredList.map((x) => x.id)]))}>Select All Visible</button>
                 <button disabled={!checks.size} onClick={() => setChecks(new Set())}>Deselect All</button>
+                <label><input checked={showDetails} onChange={e=>setShowDetails(e.target.checked)} type="checkbox" />Show details</label>
             </div>
             <div>
                 <input value={newName} onChange={e => setNewName(e.target.value)} onKeyDown={e => e.key === "Enter" && addClickHandler()} />
