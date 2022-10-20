@@ -46,3 +46,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export const selectAll = (state: RootState) => state;

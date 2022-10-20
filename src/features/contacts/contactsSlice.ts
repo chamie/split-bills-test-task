@@ -16,8 +16,8 @@ export const contactsSlice = createSlice({
     initialState,
     reducers: {
         // For overwriting the entire list. Used in LS sync
-        setContacts: (state, action: PayloadAction<ContactModel[]>) => {
-            state.contacts = action.payload;
+        setContacts: (state, action: PayloadAction<readonly ContactModel[]>) => {
+            state.contacts = [...action.payload];
         },
         // Adds a new contact
         addContact: (state, action: PayloadAction<ContactModel>) => {

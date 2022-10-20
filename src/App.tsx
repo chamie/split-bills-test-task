@@ -7,6 +7,7 @@ import { useAppDispatch } from './app/hooks';
 import { setBills } from './features/bills/billsSlice';
 import { loadBills, loadContacts } from './services/storageService';
 import { setContacts } from './features/contacts/contactsSlice';
+import { ExportImport } from './features/exportImport/ExportImport';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,12 +26,14 @@ function App() {
           <div className="header-links">
             <Link to="/">Bills</Link>
             <Link to="/contacts">Contacts</Link>
+            <Link to="/export-import">Export/Import</Link>
           </div>
         </header>
         <Routes>
           <Route path="/:id" element={<BillsList />} />
           <Route path="/" element={<BillsList />} />
           <Route path="/contacts" element={<ContactList />} />
+          <Route path="/export-import" element={<ExportImport />} />
         </Routes>
       </Router>
     </div>

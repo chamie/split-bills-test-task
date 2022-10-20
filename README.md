@@ -1,7 +1,8 @@
 # TODO
-1. Add file import-export.
+1. ~~Add file import-export.~~
 2. Add tests.
 3. Make link to current page not an anchor.
+4. Normalize the use of the words `contact`, `person`, `people` — "There can be only one!"© the Highlander.
 
 # This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
