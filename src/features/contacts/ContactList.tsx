@@ -127,11 +127,12 @@ export const ContactList = () => {
                 <label><input checked={showDetails} onChange={e=>setShowDetails(e.target.checked)} type="checkbox" />Show details</label>
             </div>
             <div>
+                Add a new contact: 
                 <input value={newName} onChange={e => setNewName(e.target.value)} onKeyDown={e => e.key === "Enter" && addClickHandler()} />
                 <button onClick={addClickHandler}>Add</button>
             </div>
             <div>
-                <button onClick={handleAddBillClick}>Create split bill</button>
+                <button onClick={handleAddBillClick}>Create new split bill</button>
             </div>
         </div>)
 }
