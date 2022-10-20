@@ -6,10 +6,13 @@
         }
         li {
             text-align: left;
+            padding: 5px;
+            border-bottom: 1px solid #ffeed0;
         }
         li::marker {
             content: '';
         }
+        padding-left: 0;
     }
     h3 {
         margin-bottom: 5px;
