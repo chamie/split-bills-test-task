@@ -4,6 +4,12 @@
 3. Make link to current page not an anchor.
 4. Normalize the use of the words `contact`, `person`, `people` — "There can be only one!"© the Highlander.
 
+# Sample data
+Can be found in [SplitBillsData.json](SplitBillsData.json) file. It can be imported using the Import/Export of the app.
+
+# Demo deployment
+Is deployed [here](http://чами.рф/vacuum/).
+
 # This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
 CRA info below:
