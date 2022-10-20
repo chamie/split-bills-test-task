@@ -38,7 +38,7 @@ export const ContactList = () => {
                 person.totalBills++;
                 if (!paid.has(personId)) {
                     person.totalBillsNotPaid++;
-                    person.totalDebt += bill.sum / bill.peopleIds.length;
+                    person.totalDebt += bill.sum / (bill.peopleIds.length + 1); // don't forget yourself! You don't owe yourselft but so you're not in the list, but you still had your [fair] share of the treats.
                 }
 
                 details.set(personId, person);

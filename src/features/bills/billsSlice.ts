@@ -4,6 +4,7 @@ import * as Storage from "../../services/storageService";
 import { BillCreateModel, BillDto } from "../../types/billModel";
 import moment from 'moment';
 
+/** State of the Bills page and the data related to it */
 export type BillsState = {
     bills: BillDto[],
 }
@@ -16,6 +17,7 @@ export const billsSlice = createSlice({
     name: "bills",
     initialState,
     reducers: {
+        /** Adds a new bill from a list of its participants */
         addBill: (state, action: PayloadAction<BillCreateModel>) => {
             const bill: BillDto = {
                 ...action.payload,

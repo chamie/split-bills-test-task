@@ -19,7 +19,7 @@ export const Bill = (props: Props) => {
     const { creationDate, idsPaidOut, peopleIds, sum, title, id: billId, onEdit } = props;
     const dispatch = useAppDispatch();
     const contacts = useAppSelector(selectContacts);
-    const splitSum = sum / peopleIds.length;
+    const splitSum = sum / (peopleIds.length + 1); // don't forget yourself! You don't owe yourselft but so you're not in the list, but you still had your [fair] share of the treats.
 
     const paidOut = useMemo(() => new Set(idsPaidOut), [idsPaidOut]);
 

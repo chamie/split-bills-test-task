@@ -10,7 +10,7 @@ export const saveBills = (bills: BillDto[]): void =>
 export const loadContacts = (): ContactModel[] =>
     loadLSDataByName("contacts") || [];
 
-export const saveContacts = (contacts: ContactModel[]) =>
+export const saveContacts = (contacts: readonly ContactModel[]) =>
     saveLSDataByName("contacts", contacts);
 
 const loadLSDataByName = <T>(name: string): T => {
