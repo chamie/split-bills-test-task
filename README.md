@@ -9,9 +9,11 @@ Can be found in [SplitBillsData.json](SplitBillsData.json) file. It can be impor
 
 # Demo deployment
 Is deployed [here](http://чами.рф/vacuum/).
+Deployed manually for the moment, by running the `npm run build` task, modifying the absolute links in `index.html` to relative ones and uploading the `build` folder via FTP.
+For actual production development the process would be modified to use some kind of CI/CD depending on the staging platform involved.
 
-# This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
-
+# Basis
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 CRA info below:
 ## Available Scripts
 
