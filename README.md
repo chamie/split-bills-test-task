@@ -1,8 +1,9 @@
 # TODO
 1. ~~Add file import-export.~~
 2. Add tests.
-3. Make link to current page not an anchor.
+3. [NN]~~Make link to current page not an anchor.~~
 4. Normalize the use of the words `contact`, `person`, `people` — "There can be only one!"© the Highlander.
+5. Document project folder structure.
 
 # Sample data
 Can be found in [SplitBillsData.json](SplitBillsData.json) file. It can be imported using the Import/Export of the app.
