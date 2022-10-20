@@ -13,6 +13,7 @@ export const saveData = (data: RootState) => {
 export const loadData = (): Promise<RootState> => new Promise((resolve) => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
+    input.setAttribute("accept", ".json");
     input.addEventListener("change", (event) => {
         const target = event.target as HTMLInputElement;
         if(!target.files)
@@ -28,4 +29,5 @@ export const loadData = (): Promise<RootState> => new Promise((resolve) => {
 
         reader.readAsText(target.files[0]);
     })
+    input.click();
 })
