@@ -4,6 +4,7 @@ import * as FileService from './fileService';
 describe('FileService', () => {
     it('saveData produces correct FileURL', () => {
         // Arrange
+        const mockURL = "data:ASDSAD";
         const mockData: RootState = {
             bills: {
                 bills: [
@@ -42,7 +43,7 @@ describe('FileService', () => {
 
         const spy = jest.spyOn(document.body, "appendChild").mockImplementation(x => x);
 
-        const mockCreateObjectURL = jest.fn(()=>"Mock Data String");
+        const mockCreateObjectURL = jest.fn(() => mockURL);
         global.URL.createObjectURL = mockCreateObjectURL;
 
         // Act
@@ -50,7 +51,7 @@ describe('FileService', () => {
 
         // Assert
         expect(mockCreateObjectURL).toHaveBeenCalledTimes(1);
-        expect(spy.mock).toHaveBeenCalledTimes(1);
-        expect((spy.mock.calls[0][0] as HTMLAnchorElement).href).toBe("Mock Data String");
+        expect(spy.mock.calls.length).toBe(1);
+        expect((spy.mock.calls[0][0] as HTMLAnchorElement).href).toBe(mockURL);
     })
 })
