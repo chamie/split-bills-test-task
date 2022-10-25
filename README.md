@@ -4,6 +4,8 @@
 3. [NN]~~Make link to current page not an anchor.~~
 4. ~~Normalize the use of the words `contact`, `person`, `people` — "There can be only one!"© the Highlander.~~
 5. Document project folder structure.
+6. Add success message after import.
+7. Error handling for import from file/LS (esp. on schema changes across versions).
 
 # Sample data
 Can be found in [SplitBillsData.json](SplitBillsData.json) file. It can be imported using the Import/Export of the app.
