@@ -1,5 +1,9 @@
 import { RootState } from "../app/store";
 
+/**
+ * Opens a file save dialog to save the current store state as a JSON file
+ * @param data store data
+ */
 export const saveData = (data: RootState) => {
     const a = document.createElement("a");
     a.download = "SplitBillsData.json";
@@ -10,6 +14,10 @@ export const saveData = (data: RootState) => {
     a.remove();
 }
 
+/**
+ * Opens a file select dialog to select a JSON file, loads it and returns parsed value expected to match the current store schema.
+ * @returns data from the loded file
+ */
 export const loadData = (): Promise<RootState> => new Promise((resolve) => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
