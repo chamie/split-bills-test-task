@@ -32,8 +32,8 @@ export const billsSlice = createSlice({
         setBills: (state, action: PayloadAction<BillDto[]>) => {
             state.bills = action.payload;
         },
-        setPaid: (state, action: PayloadAction<{ billId: number, contactId: number, markPaid: boolean }>) => {
-            const { billId, contactId, markPaid: isPaid } = action.payload;
+        setPaid: (state, action: PayloadAction<{ billId: number, contactId: number, shouldMarkPaid: boolean }>) => {
+            const { billId, contactId, shouldMarkPaid: isPaid } = action.payload;
             const bill = state.bills.find(b => b.id === billId);
 
             if (!bill) return;
