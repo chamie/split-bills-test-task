@@ -2,7 +2,7 @@ import { RootState } from '../app/store';
 import * as FileService from './fileService';
 
 describe('FileService', () => {
-    it('saveData produces correct FileURL', () => {
+    it('saveData should produce correct FileURL', () => {
         // Arrange
         const mockURL = "data:ASDSAD";
         const mockData: RootState = {

@@ -54,8 +54,8 @@ const getDefaultArray = (): TestType[] => [
 
 describe("sortBy function", () => {
 
-    describe('sort by field name', () => {
-        it('number', () => {
+    describe('should sort by field name', () => {
+        it("when it's a number", () => {
             // Arrange
             const testArray = getDefaultArray();
 
@@ -74,7 +74,7 @@ describe("sortBy function", () => {
             });
         });
 
-        it('string', () => {
+        it("when it's a string", () => {
             // Arrange
             const testArray = getDefaultArray();
 
@@ -94,8 +94,8 @@ describe("sortBy function", () => {
         });
     })
 
-    describe('sort by value provided by keySelector', () => {
-        it('number', () => {
+    describe('should sort by value provided by keySelector', () => {
+        it("when it's a number", () => {
             // Arrange
             const testArray = getDefaultArray();
 
@@ -114,7 +114,7 @@ describe("sortBy function", () => {
             });
         });
 
-        it('string', () => {
+        it("when it's a string", () => {
             // Arrange
             const testArray = getDefaultArray();
 
@@ -133,8 +133,8 @@ describe("sortBy function", () => {
             });
         });
 
-        describe('nested object property', () => {
-            it('number', () => {
+        describe("when it's a nested object property", () => {
+            it('of type number', () => {
                 // Arrange
                 const testArray = getDefaultArray();
 
@@ -153,7 +153,7 @@ describe("sortBy function", () => {
                 });
             });
 
-            it('string', () => {
+            it('of type string', () => {
                 // Arrange
                 const testArray = getDefaultArray();
 
@@ -178,7 +178,7 @@ describe("sortBy function", () => {
 });
 
 describe("moneyRound function", () => {
-    it('rounds to 2 digits after the decimal point', () => {
+    it('should round to exactly 2 digits after the decimal point', () => {
         // Arrange
         const testValue = Math.random() * 10000;
 
@@ -189,7 +189,7 @@ describe("moneyRound function", () => {
         expect(roundedValue).toMatch(/\d+\.\d{2}/i);
     });
 
-    it('rounds correctly up', () => {
+    it('should round correctly up', () => {
         // Arrange
         const testValue = 2342.455;
 
@@ -200,7 +200,7 @@ describe("moneyRound function", () => {
         expect(roundedValue).toBe(2342.46);
     });
 
-    it('rounds correctly down', () => {
+    it('should round correctly down', () => {
         // Arrange
         const testValue = 2342.453;
 
