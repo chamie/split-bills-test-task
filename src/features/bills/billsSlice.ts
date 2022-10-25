@@ -50,7 +50,7 @@ export const billsSlice = createSlice({
 
             if (!bill) return;
 
-            bill.idsPaidOut = bill.peopleIds;
+            bill.idsPaidOut = bill.contactIds;
         },
         updateBill: (state, action: PayloadAction<BillDto>) => {
             const bill = action.payload;

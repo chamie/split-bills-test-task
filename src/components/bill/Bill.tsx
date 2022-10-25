@@ -16,10 +16,10 @@ type Props = BillDto & {
 const classes = (classes: string[]) => classes.filter(x => x && x !== "").join(" ");
 
 export const Bill = (props: Props) => {
-    const { creationDate, idsPaidOut, peopleIds, sum, title, id: billId, onEdit } = props;
+    const { creationDate, idsPaidOut, contactIds, sum, title, id: billId, onEdit } = props;
     const dispatch = useAppDispatch();
     const contacts = useAppSelector(selectContacts);
-    const splitSum = sum / (peopleIds.length + 1); // don't forget yourself! You don't owe yourselft but so you're not in the list, but you still had your [fair] share of the treats.
+    const splitSum = sum / (contactIds.length + 1); // don't forget yourself! You don't owe yourselft but so you're not in the list, but you still had your [fair] share of the treats.
 
     const paidOut = useMemo(() => new Set(idsPaidOut), [idsPaidOut]);
 
@@ -35,7 +35,7 @@ export const Bill = (props: Props) => {
 
     const navigate = useNavigate();
 
-    const isAllPaid = paidOut.size === peopleIds.length;
+    const isAllPaid = paidOut.size === contactIds.length;
 
     return (
         <div tabIndex={-1} aria-labelledby={`bill-${billId}-title`} className={classes([styles.Bill, onEdit ? styles.active : "", isAllPaid ? styles["paid-out"] : ""])}>
@@ -60,15 +60,15 @@ export const Bill = (props: Props) => {
                 } total, {Math.round(splitSum * 100) / 100} each.
             </div>
             <ul>
-                {peopleIds.map(personId => {
-                    const person = contacts[personId];
-                    return <li key={personId}>
+                {contactIds.map(contactId => {
+                    const contact = contacts[contactId];
+                    return <li key={contactId}>
                         <Contact
                             onNameClick={checkHandler}
                             onCheck={checkHandler}
-                            id={personId}
-                            isChecked={paidOut.has(personId)}
-                            {...person}
+                            id={contactId}
+                            isChecked={paidOut.has(contactId)}
+                            {...contact}
                         />
                     </li>
                 })}

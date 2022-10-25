@@ -25,13 +25,13 @@ export const contactsSlice = createSlice({
         },
         // Updates a contact by ID. The ContactModel itself doesn't contain an ID, as the index in array is sufficient
         // (we don't have any delete functionality) so the ID is passed separately.
-        updateContact: (state, action: PayloadAction<{ person: ContactModel, id: number }>) => {
-            const { id, person } = action.payload;
+        updateContact: (state, action: PayloadAction<{ contactUpdateData: ContactModel, id: number }>) => {
+            const { id, contactUpdateData } = action.payload;
             const contact = state.contacts[id];
             if (!contact)
                 return;
 
-            contact.name = person.name;
+            contact.name = contactUpdateData.name;
         }
 
     }

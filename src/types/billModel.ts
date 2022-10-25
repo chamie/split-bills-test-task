@@ -1,5 +1,5 @@
 export type BillCreateModel = {
-    peopleIds: number[],
+    contactIds: number[],
 }
 
 export type BillDto = BillCreateModel & {

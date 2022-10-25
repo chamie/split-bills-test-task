@@ -29,19 +29,19 @@ export const ContactList = () => {
     if (showDetails) {
         bills.forEach(bill => {
             const paid = new Set(bill.idsPaidOut);
-            bill.peopleIds.forEach(personId => {
-                const person = details.get(personId) || {
+            bill.contactIds.forEach(contactId => {
+                const contact = details.get(contactId) || {
                     totalBills: 0,
                     totalBillsNotPaid: 0,
                     totalDebt: 0,
                 };
-                person.totalBills++;
-                if (!paid.has(personId)) {
-                    person.totalBillsNotPaid++;
-                    person.totalDebt += bill.sum / (bill.peopleIds.length + 1); // don't forget yourself! You don't owe yourselft but so you're not in the list, but you still had your [fair] share of the treats.
+                contact.totalBills++;
+                if (!paid.has(contactId)) {
+                    contact.totalBillsNotPaid++;
+                    contact.totalDebt += bill.sum / (bill.contactIds.length + 1); // don't forget yourself! You don't owe yourselft but so you're not in the list, but you still had your [fair] share of the treats.
                 }
 
-                details.set(personId, person);
+                details.set(contactId, contact);
             });
         })
     }
@@ -93,7 +93,7 @@ export const ContactList = () => {
     const handleAddBillClick = useCallback(() => {
         dispatch(
             addBill({
-                peopleIds: Array.from(checks.keys())
+                contactIds: Array.from(checks.keys())
             }, navigate)
         );
     }, [checks, dispatch, navigate]);
