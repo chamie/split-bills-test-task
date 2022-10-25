@@ -16,7 +16,7 @@ export const BillsList = () => {
     const onEdit = useCallback((bill: BillDto) => dispatch(updateBill(bill)), [dispatch]);
     return <div>
         <h3>
-            Bills
+            Bills.
         </h3>
         {bills.length
             ? <div className={styles.billsContainer}>

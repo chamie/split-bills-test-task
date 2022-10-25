@@ -1,7 +1,7 @@
 import './App.css';
 import { ContactList } from './features/contacts/ContactList';
 import { BillsList } from './features/bills/BillsList';
-import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from './app/hooks';
 import { setBills } from './features/bills/billsSlice';
@@ -21,7 +21,6 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
         <header className="App-header">
           <div className="header-links">
             <Link to="/">Bills</Link>
@@ -35,7 +34,6 @@ function App() {
           <Route path="/contacts" element={<ContactList />} />
           <Route path="/export-import" element={<ExportImport />} />
         </Routes>
-      </Router>
     </div>
   );
 }

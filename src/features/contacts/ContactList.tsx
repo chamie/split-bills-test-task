@@ -100,7 +100,7 @@ export const ContactList = () => {
 
     return (
         <div className={styles.ContactList}>
-            <h3>Contacts:</h3>
+            <h3>Contacts.</h3>
             Search: <input value={searchTerm} type={"search"} onChange={handleSearchChange} placeholder="Search..." title="Filter contacts" />
             <ul>
                 {
