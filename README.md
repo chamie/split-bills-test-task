@@ -48,9 +48,9 @@ Except for input handlers that wrap the actual action with event handling boiler
 2. ~~Add tests.~~
 3. [NN]~~Make link to current page not an anchor.~~
 4. ~~Normalize the use of the words `contact`, `person`, `people` — "There can be only one!"© the Highlander.~~
-5. Document project folder structure.
+5. ~~Document project folder structure.~~
 6. Add success message after import.
-7. Error handling for import from file/LS (esp. on schema changes across versions).
+7. Improve error handling for import from file/LS (esp. on schema changes across versions).
 8. Investigate the UX — do we need the Edit/Submit button? Looks like we don't. Also we need a better highlighting of the current list for the newly-created one, maybe consider adding some flashing-once animation or a fading-out THICCC border?
 
 # Sample data
