@@ -1,3 +1,48 @@
+# How the app works from the user's perspective
+Main page is "Bills" that shows a list of the bills shared, each with a list of people (contacts) that share it with check-marks on those who've already paid off their debt, total sum of the bill, name and a date of its creation relative to Today.
+To mark a person's debt as paid you just click on the checkbox, to modify other data of the bill, you need to click the "Edit" button first.
+To create a new bill you open the "Contacts" page, select the peers involved from the list (add if necessary) and click "Create New Split Bill". The list will be created and you will be redirected to the list of bills. Newly created one will be active for editing the title and sum. Each person will be assigned their share (sum/(n+1), where n is the number of contacts on the list). Also you can see the total debt for each person right in the contacts list (that can be switched on and off with a "Show Details" checkbox).
+The data is kept in the LocalStorage so it's not lost between the openings of the page and is also synced across tabs of the same browser. Besides that, the data could be exported to a file and imported back.
+## Some details
+On load the Redux store is populated from the localStorage, if any data has been already stored there.
+The state is dumped into the LocalStorage on each change of the state, that's done with a global middleware `lsSyncMiddleware` defined in the store.ts.
+Also the store is updated on each change of the LocalStorage, so you can change data in one tab/window of the browser and immediately see the UI updated in another one.
+# Folder Structure:
+```
+├─ build                — here the production build goes
+├─ public               — here the dev build goes
+├─ src                  — here's the code
+│  ├─app                — root Redux store stuff, root hooks
+│  ├─components         — components, not tied to store. Include a component and, optionally, a test file and an SCSS file.
+│  │ └─[Component.tsx, Component.test.tsx, Component.module.scss]
+│  ├─features           — features, i.e. pieces of functionality that involve not only a component, but also a store slice and/or a route.
+│  │ └─[Feature.tsx, Feature.test.tsx, featureSlice.ts, Feature.module.scss]
+│  ├──services          — common place for services that do work not tied to reperesentational layer. E.g. import-export.
+│  ├──utils             — common pieces of functionality too small to be a service.
+│  ├──types             — common types. Each type in its own file.
+│  ├──App.css           — app-level styles
+│  ├──index.css         — top-level styles
+│  ├──index.tsx         — top-level component
+│  ├──index.css         — top-level styles
+│  └──...
+├──README.md            — this file
+├──SplitBillsData.json  — demo data.
+├──tsconfig.json        — TypeScript settings.
+└──package.json         — npm package settings.
+```
+
+# Naming conventions
+## Files
+Components files start with capital, named same as the component inside.
+Test files named same as the file they're testing but with `.test` before the extension (utils.ts → utils.test.ts).
+
+## Variables and properties
+Booleans start with a form of "to be", i.e. `isInputEnabled`, `shouldComponentUpdate` and never contain "not".
+
+## Functions, including methods, reducers and thunks
+Starts with a verb that describes the basic action done by the function.
+Except for input handlers that wrap the actual action with event handling boilerplate — those might be called "on<EventName>".
+
 # TODO
 1. ~~Add file import-export.~~
 2. ~~Add tests.~~
@@ -6,6 +51,7 @@
 5. Document project folder structure.
 6. Add success message after import.
 7. Error handling for import from file/LS (esp. on schema changes across versions).
+8. Investigate the UX — do we need the Edit/Submit button? Looks like we don't. Also we need a better highlighting of the current list for the newly-created one, maybe consider adding some flashing-once animation or a fading-out THICCC border?
 
 # Sample data
 Can be found in [SplitBillsData.json](SplitBillsData.json) file. It can be imported using the Import/Export of the app.
