@@ -12,8 +12,8 @@ export const loadBills = (): BillDto[] =>
  * Saves a bills array to "bills" LocalStorage key
  * @param bills Bills array to save
  */
-export const saveBills = (bills: BillDto[]): void =>
-    saveLSDataByName<BillDto[]>("bills", bills);
+export const saveBills = (bills: readonly BillDto[]): void =>
+    saveLSDataByName("bills", bills);
 
 /**
  * Loads contacts from "contacts" LocalStorage key

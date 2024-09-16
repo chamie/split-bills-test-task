@@ -1,10 +1,11 @@
-import { configureStore, ThunkAction, Action, ThunkMiddleware, AnyAction } from '@reduxjs/toolkit';
+import { ThunkAction, ThunkMiddleware } from 'redux-thunk';
+import { Action, AnyAction, combineReducers, legacy_createStore, applyMiddleware } from 'redux';
 import billsReducer, { BillsState } from '../features/bills/billsSlice'
 import { loadBills, loadContacts } from '../services/storageService';
 import contactsReducer, { ContactsState } from '../features/contacts/contactsSlice';
 import * as StorageService from '../services/storageService';
 
-const lsSyncMiddleware: ThunkMiddleware<{
+const localStorageSyncMiddleware: ThunkMiddleware<{
   bills: BillsState,
   contacts: ContactsState,
 }, AnyAction, undefined> = ({ getState }) => (next) => (action) => {
@@ -21,22 +22,21 @@ const lsSyncMiddleware: ThunkMiddleware<{
   return result;
 }
 
-export const store = configureStore({
-  reducer: {
-    bills: billsReducer,
-    contacts: contactsReducer,
+const initialState = {
+  bills: {
+    bills: loadBills(),
   },
-  preloadedState: {
-    bills: {
-      bills: loadBills(),
-    },
-    contacts: {
-      contacts: loadContacts(),
-    }
+  contacts: {
+    contacts: loadContacts(),
+  }
+};
 
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(lsSyncMiddleware)
+const rootReducer = combineReducers({
+  bills: billsReducer,
+  contacts: contactsReducer,
 });
+
+const store = legacy_createStore(rootReducer, initialState, applyMiddleware(localStorageSyncMiddleware));
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

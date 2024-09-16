@@ -1,6 +1,4 @@
 import { ChangeEvent, useMemo } from "react";
-import { useAppSelector } from "../../app/hooks";
-import { selectContacts } from "../../features/contacts/contactsSlice";
 import { BillDto } from "../../types/billModel";
 import { Contact } from "../contact/Contact";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Bill.module.scss";
 import moment from "moment";
 import { ContactModel } from "../../types/contactModel";
+import { DeepReadonly } from "../../utils/utils";
 
 type Props = BillDto & {
     onEdit?: (bill: BillDto) => void,

@@ -1,12 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../../app/store";
 import * as Storage from "../../services/storageService";
 import { BillCreateModel, BillDto } from "../../types/billModel";
 import moment from 'moment';
+import { createSlice, PayloadAction } from "../../app/rtkSane";
 
 /** State of the Bills page and the data related to it */
 export type BillsState = {
-    bills: BillDto[],
+    bills: readonly BillDto[],
 }
 
 const initialState: BillsState = {
@@ -27,35 +27,55 @@ export const billsSlice = createSlice({
                 title: `Bill from ${moment().format('MMMM Do YYYY')}`,
                 id: state.bills.length,
             };
-            state.bills.push(bill);
+            return {
+                ...state,
+                bills: [
+                    ...state.bills,
+                    bill,
+                ]
+            }
         },
-        setBills: (state, action: PayloadAction<BillDto[]>) => {
-            state.bills = action.payload;
-        },
+        setBills: (state, action: PayloadAction<BillDto[]>) => ({
+            ...state,
+            bills: action.payload,
+        }),
         setPaid: (state, action: PayloadAction<{ billId: number, contactId: number, shouldMarkPaid: boolean }>) => {
             const { billId, contactId, shouldMarkPaid: isPaid } = action.payload;
-            const bill = state.bills.find(b => b.id === billId);
 
-            if (!bill) return;
-
-            if (isPaid) {
-                bill.idsPaidOut.push(contactId);
-            } else {
-                bill.idsPaidOut = bill.idsPaidOut.filter(x => x !== contactId);
+            return {
+                ...state,
+                bills: state.bills.map(bill =>
+                    bill.id === billId
+                        ? {
+                            ...bill,
+                            idsPaidOut: isPaid
+                                ? [...bill.idsPaidOut, contactId]
+                                : bill.idsPaidOut.filter(id => id !== contactId)
+                        }
+                        : bill
+                )
             }
         },
         setBillPaid: (state, action: PayloadAction<number>) => {
             const billId = action.payload;
-            const bill = state.bills.find(b => b.id === billId);
 
-            if (!bill) return;
-
-            bill.idsPaidOut = bill.contactIds;
+            return {
+                ...state,
+                bills: state.bills.map(bill => bill.id === billId
+                    ? {
+                        ...bill,
+                        idsPaidOut: bill.contactIds
+                    }
+                    : bill
+                )
+            }
         },
-        updateBill: (state, action: PayloadAction<BillDto>) => {
-            const bill = action.payload;
-            state.bills[bill.id] = bill;
-        }
+        updateBill: (state, action: PayloadAction<BillDto>) => ({
+            ...state,
+            bills: state.bills.map(bill => bill.id === action.payload.id
+                ? action.payload
+                : bill),
+        }),
     }
 });
 

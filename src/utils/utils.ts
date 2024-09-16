@@ -8,3 +8,11 @@ export const sortBy = <T, K extends keyof T>(array: readonly T[], keySelector: K
 }
 
 export const moneyRound = (amount: number) => Math.round(amount * 100) / 100;
+
+export type DeepReadonly<T> = {
+    readonly [K in keyof T]: T[K] extends object
+      ? T[K] extends (...args: any[]) => any // Exclude functions from being deep readonly
+        ? T[K]
+        : DeepReadonly<T[K]>
+      : T[K];
+  };
