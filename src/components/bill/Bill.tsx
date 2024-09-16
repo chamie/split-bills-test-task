@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Bill.module.scss";
 import moment from "moment";
 import { ContactModel } from "../../types/contactModel";
-import { DeepReadonly } from "../../utils/utils";
 
 type Props = BillDto & {
     onEdit?: (bill: BillDto) => void,

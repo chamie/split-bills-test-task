@@ -1,14 +1,11 @@
 import { ThunkAction, ThunkMiddleware } from 'redux-thunk';
-import { Action, AnyAction, combineReducers, legacy_createStore, applyMiddleware } from 'redux';
-import billsReducer, { BillsState } from '../features/bills/billsSlice'
+import { Action, combineReducers, legacy_createStore, applyMiddleware } from 'redux';
+import billsReducer from '../features/bills/billsSlice'
 import { loadBills, loadContacts } from '../services/storageService';
-import contactsReducer, { ContactsState } from '../features/contacts/contactsSlice';
+import contactsReducer from '../features/contacts/contactsSlice';
 import * as StorageService from '../services/storageService';
 
-const localStorageSyncMiddleware: ThunkMiddleware<{
-  bills: BillsState,
-  contacts: ContactsState,
-}, AnyAction, undefined> = ({ getState }) => (next) => (action) => {
+const localStorageSyncMiddleware: ThunkMiddleware = ({ getState }) => (next) => (action: any) => {
   const state = getState();
   const result = next(action);
   const nextState = getState();

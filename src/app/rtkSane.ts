@@ -7,13 +7,6 @@ type Action<T, P = undefined> = P extends undefined
 
 export type PayloadAction<T> = Action<string, T>;
 
-// A utility to extract the action type
-// type ActionFromReducers<Reducers> = {
-//   [K in keyof Reducers]: Reducers[K] extends (state: any, action: infer A) => any
-//     ? A
-//     : never;
-// }[keyof Reducers];
-
 // createSlice options interface
 type SliceOptions<State, Reducers> = {
   name: string;
